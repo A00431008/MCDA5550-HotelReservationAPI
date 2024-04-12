@@ -7,17 +7,24 @@ import jakarta.persistence.*;
 public class Hotel {
 
     @Id
-    private String id; // Using hotel code as the ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "hotel_id")
+    private int id; // Using auto-incrementing primary key
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "availability")
     private boolean availability;
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,33 +50,5 @@ public class Hotel {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
-    }
-
-    // Generate hotel code based on the first letter of each word in the hotel name
-    // combined with a unique identifier
-    public void generateHotelCode() {
-        StringBuilder codeBuilder = new StringBuilder();
-
-        // Take the first letter of each word in the hotel name
-        String[] words = this.name.split("\\s+");
-        for (String word : words) {
-            codeBuilder.append(word.charAt(0));
-        }
-
-        // If the hotel name has fewer than 5 words, append 'X' to meet the 5-character length
-        while (codeBuilder.length() < 5) {
-            codeBuilder.append("X");
-        }
-
-        // Truncate the code to 5 characters
-        String generatedCode = codeBuilder.substring(0, 5).toUpperCase();
-
-        // Append a unique identifier to the code (e.g., hotel ID)
-        // For simplicity, let's use the ID, but in a real-world scenario, you might want to
-        // use a hash or other unique identifier
-        generatedCode += this.id;
-
-        // Set the generated code as the ID
-        this.id = generatedCode;
     }
 }
