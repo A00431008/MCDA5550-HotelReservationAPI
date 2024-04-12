@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class hotelsController {
+public class HotelsController {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     // API to get the hotels - queries the hotels table and returns all the hotels as list
-    @GetMapping(value = "/get_hotels")
+    @GetMapping(value="/get_hotels")
     public List<Hotel> getHotels() {
         TypedQuery<Hotel> query = entityManager.createQuery("SELECT h from Hotel h", Hotel.class);
         return query.getResultList();

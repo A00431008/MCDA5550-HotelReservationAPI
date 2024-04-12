@@ -11,7 +11,7 @@ public class Hotel {
     @Column(name = "hotel_id")
     private int id; // Using auto-incrementing primary key
 
-    @Column(name = "name")
+    @Column(name = "hotel_name")
     private String name;
 
     @Column(name = "price")

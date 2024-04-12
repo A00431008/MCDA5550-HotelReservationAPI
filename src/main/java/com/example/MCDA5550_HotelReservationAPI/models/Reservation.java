@@ -1,7 +1,8 @@
 package com.example.MCDA5550_HotelReservationAPI.models;
 
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "Reservations", uniqueConstraints = @UniqueConstraint(columnNames = {"confirmation_number"}))
@@ -25,16 +26,8 @@ public class Reservation {
     @JoinColumn(name = "guest_id")
     private Guest primaryGuest;
 
-    // Constructors
+    // Constructor to initialize reservation from rest-controller
     public Reservation() {
-    }
-
-    public Reservation(String confirmationNumber, Hotel hotel, String checkInDate, String checkOutDate, Guest primaryGuest) {
-        this.confirmationNumber = confirmationNumber;
-        this.hotel = hotel;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.primaryGuest = primaryGuest;
     }
 
     // Getters and Setters
@@ -42,8 +35,8 @@ public class Reservation {
         return confirmationNumber;
     }
 
-    public void setConfirmationNumber(String confirmationNumber) {
-        this.confirmationNumber = confirmationNumber;
+    public void setConfirmationNumber() {
+        this.confirmationNumber = generateConfirmationNumber();
     }
 
     public Hotel getHotel() {
@@ -78,10 +71,6 @@ public class Reservation {
         this.primaryGuest = primaryGuest;
     }
 
-    // Autowire the ReservationRepository
-    @Autowired
-    private EntityManager entityManager;
-
     // Method to generate confirmation number with count suffix
     public String generateConfirmationNumber() {
         // Get the hotel ID
@@ -91,21 +80,19 @@ public class Reservation {
         int guestId = this.primaryGuest.getId();
 
         // Get the base confirmation number
-        String baseConfirmationNumber = "RH" + hotelId + "G" + guestId + "-";
+        String baseConfirmationNumber = "R" + hotelId + "G" + guestId + "-";
 
-        // Count the number of existing reservations with the same base confirmation number prefix
-        long count = countByConfirmationNumberStartingWith(baseConfirmationNumber);
+        // Get current date and time
+        LocalDateTime now = LocalDateTime.now();
 
-        // Generate confirmation number by appending count suffix
-        this.confirmationNumber = baseConfirmationNumber + (count + 1);
+        // Format the current date and time as YYMMDDHHmmss
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+        String timestamp = now.format(formatter);
+
+        // Generate confirmation number by appending timestamp
+        // the format will be R<hotel_id>G<guest_id>-yyMMddHHmmss - example R1G1024-240412160000
+        this.confirmationNumber = baseConfirmationNumber + timestamp;
 
         return this.confirmationNumber;
-    }
-
-    // Method to count reservations by confirmation number prefix
-    private long countByConfirmationNumberStartingWith(String confirmationNumberPrefix) {
-        Query query = entityManager.createQuery("SELECT COUNT(r) FROM Reservation r WHERE r.confirmationNumber LIKE :prefix");
-        query.setParameter("prefix", confirmationNumberPrefix + "%");
-        return (long) query.getSingleResult();
     }
 }
