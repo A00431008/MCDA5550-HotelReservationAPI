@@ -2,6 +2,8 @@ package com.example.MCDA5550_HotelReservationAPI.models;
 
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "Hotels")
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
