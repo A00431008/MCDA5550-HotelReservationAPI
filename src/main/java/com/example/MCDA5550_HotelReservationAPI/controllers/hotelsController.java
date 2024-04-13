@@ -22,6 +22,12 @@ public class HotelsController {
     @PersistenceContext
     private EntityManager entityManager;
 
+    // API to check health
+    @GetMapping(value="/")
+    public String healthChecker() {
+        return "Healthy !!!";
+    }
+
     // API to get the hotels - queries the hotels table and returns all the hotels as list
     @GetMapping(value="/get_hotels")
     public List<Hotel> getHotels() {
