@@ -3,16 +3,16 @@ package com.example.MCDA5550_HotelReservationAPI.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Hotels")
+@Table(name = "hotels")
 public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_id")
-    private int id; // Using auto-incrementing primary key
+    private int hotel_id; // Using auto-incrementing primary key
 
     @Column(name = "hotel_name")
-    private String name;
+    private String hotel_name;
 
     @Column(name = "price")
     private double price;
@@ -20,20 +20,25 @@ public class Hotel {
     @Column(name = "availability")
     private boolean availability;
 
+    // Default constructor
+    public Hotel() {
+        this.availability = false;
+    }
+
     public int getId() {
-        return this.id;
+        return this.hotel_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.hotel_id = id;
     }
 
     public String getName() {
-        return this.name;
+        return this.hotel_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.hotel_name = name;
     }
 
     public double getPrice() {

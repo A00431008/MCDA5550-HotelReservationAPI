@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.MCDA5550_HotelReservationAPI.models.*;
 import jakarta.persistence.PersistenceException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,28 +42,6 @@ public class HotelsController {
             } else {
                 return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        } catch (Exception e) {
-            return new ResponseEntity<>("Bad Request: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @Transactional
-    @DeleteMapping(value = "/deleteHotel/{id}")
-    public ResponseEntity<String> deleteHotel(@PathVariable Long id) {
-        try {
-            Hotel hotelToDelete = entityManager.find(Hotel.class, id);
-
-            if (hotelToDelete == null) {
-                return new ResponseEntity<>("Hotel not found with ID: " + id, HttpStatus.NOT_FOUND);
-            }
-
-            entityManager.remove(hotelToDelete);
-
-            return new ResponseEntity<>("Hotel deleted successfully", HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>("Hotel not found with ID: " + id, HttpStatus.NOT_FOUND);
-        } catch (PersistenceException e) {
-            return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             return new ResponseEntity<>("Bad Request: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }

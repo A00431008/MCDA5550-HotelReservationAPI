@@ -3,16 +3,16 @@ package com.example.MCDA5550_HotelReservationAPI.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Guests")
+@Table(name = "guests")
 public class Guest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "guest_id")
-    private int guestId; // Using auto-incrementing primary key
+    private int guest_id; // Using auto-incrementing primary key
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "guest_name")
+    private String guest_name;
 
     @Column(name = "email", unique = true)
     private String email;
@@ -24,19 +24,19 @@ public class Guest {
     private int age;
 
     public int getId() {
-        return guestId;
+        return guest_id;
     }
 
     public void setId(int guestId) {
-        this.guestId = guestId;
+        this.guest_id = guestId;
     }
 
     public String getName() {
-        return name;
+        return guest_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.guest_name = name;
     }
 
     public String getEmail() {

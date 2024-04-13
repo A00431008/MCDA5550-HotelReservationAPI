@@ -5,16 +5,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-@Table(name = "Reservations", uniqueConstraints = @UniqueConstraint(columnNames = {"confirmation_number"}))
+@Table(name = "reservations")
 public class Reservation {
 
     @Id
-    @Column(name = "confirmation_number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(nullable = false, length = 255) // Adjust length as per your requirements
     private String confirmationNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
+    @Column(name = "hotel_id")
+    private int hotel_id;
 
     @Column(name = "check_in_date")
     private String checkInDate;
@@ -22,9 +24,8 @@ public class Reservation {
     @Column(name = "check_out_date")
     private String checkOutDate;
 
-    @ManyToOne
-    @JoinColumn(name = "guest_id")
-    private Guest primaryGuest;
+    @Column(name = "primary_guest_id")
+    private int primaryGuest_id;
 
     // Constructor to initialize reservation from rest-controller
     public Reservation() {
@@ -35,16 +36,12 @@ public class Reservation {
         return confirmationNumber;
     }
 
-    public void setConfirmationNumber() {
-        this.confirmationNumber = generateConfirmationNumber();
+    public int getHotel() {
+        return hotel_id;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setHotel(int hotel_id) {
+        this.hotel_id = hotel_id;
     }
 
     public String getCheckInDate() {
@@ -63,24 +60,17 @@ public class Reservation {
         this.checkOutDate = checkOutDate;
     }
 
-    public Guest getPrimaryGuest() {
-        return primaryGuest;
+    public int getPrimaryGuest() {
+        return primaryGuest_id;
     }
 
-    public void setPrimaryGuest(Guest primaryGuest) {
-        this.primaryGuest = primaryGuest;
+    public void setPrimaryGuest(int primaryGuest_Id) {
+        this.primaryGuest_id = primaryGuest_Id;
     }
 
     // Method to generate confirmation number with count suffix
-    public String generateConfirmationNumber() {
-        // Get the hotel ID
-        int hotelId = this.hotel.getId();
-
-        // Get the guest ID
-        int guestId = this.primaryGuest.getId();
-
-        // Get the base confirmation number
-        String baseConfirmationNumber = "R" + hotelId + "G" + guestId + "-";
+    public void generateConfirmationNumber() {
+        String baseConfirmationNumber = "R" + this.hotel_id + "G" + this.primaryGuest_id + "-";
 
         // Get current date and time
         LocalDateTime now = LocalDateTime.now();
@@ -92,7 +82,5 @@ public class Reservation {
         // Generate confirmation number by appending timestamp
         // the format will be R<hotel_id>G<guest_id>-yyMMddHHmmss - example R1G1024-240412160000
         this.confirmationNumber = baseConfirmationNumber + timestamp;
-
-        return this.confirmationNumber;
     }
 }
