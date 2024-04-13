@@ -56,11 +56,10 @@ public class ReservationsController {
 
         // save the list of guests in guests table if not present
         // then all the guests in the list to be added to the reservationguests table
-        List<ReservationGuest> reservationGuestList = new ArrayList<>();
+        
         for (Guest guest : reservationRequest.getGuestsList()) {
             // Check if the guest already exists by email (email is unique)
             Guest existingGuest = findGuestByEmail(guest.getEmail());
-            int guestID;
             if (existingGuest == null) {
                 // If guest doesn't exist, create a new one
                 Guest newGuest = new Guest();
@@ -68,16 +67,18 @@ public class ReservationsController {
                 newGuest.setEmail(guest.getEmail());
                 newGuest.setGender(guest.getGender());
                 newGuest.setAge(guest.getAge());
-                entityManager.persist(newGuest);;
-                guestID = findGuestByEmail(guest.getEmail()).getId();
-            } else {
-                guestID = existingGuest.getId();
-            }
+                entityManager.persist(newGuest);;   
+            } 
+        }    
+
+        List<ReservationGuest> reservationGuestList = new ArrayList<>();
+        for (Guest guest : reservationRequest.getGuestsList()) {
             ReservationGuest newReservationGuest = new ReservationGuest();
             newReservationGuest.setConfirmationNumber(reservation.getConfirmationNumber());
-            newReservationGuest.setGuestId(guestID);
+            Guest existingGuest = findGuestByEmail(guest.getEmail()); // it will return guest ID as we just persisted on database for guest
+            newReservationGuest.setGuestId(existingGuest.getId());
             reservationGuestList.add(newReservationGuest);
-        }    
+        }
 
         // add reservationguest list to reservation_guest table
         // added outside of for loop to avoid Transient Object Exception
