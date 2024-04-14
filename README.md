@@ -105,10 +105,3 @@ git clone https://github.com/A00431008/MCDA5550_HotelReservationAPI.git
 5. Ensure the project is recognized as a Maven project.
 6. Navigate to the main Spring Boot application file (usually named `Application.java` or similar) in the `src/main/java` directory.
 7. Right-click on the file and select "Run <ApplicationName>" or use the shortcut (usually Shift + F10) to run the application.
-```
-
-
-
-
-
-
