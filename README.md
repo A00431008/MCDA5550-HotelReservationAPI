@@ -37,6 +37,8 @@ Retrieve a list of hotels, each accompanied by its ID, name, price, and availabi
 ]
 ```
 
+![Get Request Screenshot](image.png)
+
 ## POST Request - create a reservation
 
 This request is used to create a reservation in the database which populates corresponding tables in the database and returns confirmation number as JSON object.
@@ -73,6 +75,8 @@ This request is used to create a reservation in the database which populates cor
 }
 ```
 
+![Post Request Screenshot](Post_Request_Screenshot.png)
+
 ## How to Install Application
 
 # Prerequisites
@@ -90,7 +94,7 @@ git clone https://github.com/A00431008/MCDA5550_HotelReservationAPI.git
 ```
 4. Navigate to the root directory of the project in the terminal.
 5. Ensure you have the Java Extension Pack installed (optional).
-6. Navigate to the main Spring Boot application file (usually named `Application.java` or similar) in the `src/main/java` directory.
+6. Navigate to the main Spring Boot application file ( named `Mcda5550HotelReservationApiApplication.java` ) in the `src/main/java/com/example/MCDA5550_HotelReservationAPI` directory.
 7. Right-click on the file and select "Run" or use the shortcut (usually Ctrl + F5) to run the application.
 
 ## Instructions for cloning and running the Spring Boot application in IntelliJ IDEA
@@ -102,5 +106,5 @@ git clone https://github.com/A00431008/MCDA5550_HotelReservationAPI.git
 ```
 4. Open the root directory of the project in IntelliJ IDEA.
 5. Ensure the project is recognized as a Maven project.
-6. Navigate to the main Spring Boot application file (usually named `Application.java` or similar) in the `src/main/java` directory.
+6. Navigate to the main Spring Boot application file ( named `Mcda5550HotelReservationApiApplication.java` ) in the `src/main/java/com/example/MCDA5550_HotelReservationAPI` directory.
 7. Right-click on the file and select "Run <ApplicationName>" or use the shortcut (usually Shift + F10) to run the application.
