@@ -17,7 +17,7 @@ Healthy !!!
 
 Retrieve a list of hotels, each accompanied by its ID, name, price, and availability status.
 
-**URL**: `https://<your-ip-address>:3001`
+**URL**: `https://<your-ip-address>:3001/get_hotels`
 
 **Sample Response (excerpt)**:
 ```json
@@ -41,7 +41,7 @@ Retrieve a list of hotels, each accompanied by its ID, name, price, and availabi
 
 This request is used to create a reservation in the database which populates corresponding tables in the database and returns confirmation number as JSON object.
 
-**URL** - `https://<your-ip-address>:3001`
+**URL** - `https://<your-ip-address>:3001/create_reservation`
 
 **Sample Body**: 
 ```json
