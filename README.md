@@ -37,7 +37,7 @@ Retrieve a list of hotels, each accompanied by its ID, name, price, and availabi
 ]
 ```
 
-![Get Request Screenshot](image.png)
+![Get Request Screenshot](Get_Request_Screenshot.png)
 
 ## POST Request - create a reservation
 
