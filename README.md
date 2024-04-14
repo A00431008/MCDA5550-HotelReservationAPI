@@ -75,7 +75,6 @@ This request is used to create a reservation in the database which populates cor
 
 ## How to Install Application
 
-```markdown
 # Prerequisites
 1. Java Development Kit (JDK) installed on your machine.
 2. Apache Maven build tool installed on your machine.
